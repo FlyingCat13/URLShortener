@@ -3,6 +3,9 @@ from django.db import models
 from django.utils.crypto import get_random_string
 
 class URLRedirect(models.Model):
+    """
+    URLRedirect contains information of a redirect from a short URL to the original URL
+    """
     original_URL = models.URLField()
     short_URL_suffix = models.CharField(max_length=6, unique=True)
     created_by = models.ForeignKey(User, on_delete=models.CASCADE)
