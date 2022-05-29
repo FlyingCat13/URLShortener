@@ -6,7 +6,7 @@ class URLRedirect(models.Model):
     original_URL = models.URLField()
     short_URL_suffix = models.CharField(max_length=6, unique=True)
     created_by = models.ForeignKey(User, on_delete=models.CASCADE)
-    click_count = models.PositiveIntegerField(default=0)
+    access_count = models.PositiveIntegerField(default=0)
 
     def save(self, *args, **kwargs) -> None:
         if not self.short_URL_suffix:
@@ -17,4 +17,4 @@ class URLRedirect(models.Model):
             
             self.short_URL_suffix = new_suffix
 
-        super().save(self, *args, **kwargs)
+        super().save(*args, **kwargs)

@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block body_content %}
+    {% include "includes/navbar.html" with active_page="list" %}
+
+    <div class="p-3">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Original URL</th>
+                    <th scope="col">Short URL</th>
+                    <th scope="col">Access count</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for url_redirect in object_list %}
+                    <tr>
+                        <td>
+                            <a href={{ url_redirect.original_URL }}>
+                                {{ url_redirect.original_URL }}
+                            </a>
+                        </td>
+                        <td>
+                            <a href={{ url_redirect.short_URL_suffix }}>
+                                {{ request.get_host }}/{{ url_redirect.short_URL_suffix }}
+                            </a>
+                        </td>
+                        <td>{{ url_redirect.access_count }}</td>
+                        <td>
+                            <form method="POST" action="{% url "url-redirect-delete" url_redirect.id %}">
+                                {% csrf_token %}
+                                <button class="btn btn-sm btn-danger" type="submit">Delete</button>
+                            </form>    
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="4">No short link created yet.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock body_content %}

@@ -1,0 +1,39 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand">
+            URL Shortener
+        </a>
+        <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+        >
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <div class="navbar-nav me-auto">
+                <a
+                    class="nav-link {% if active_page == "create" %}active{% endif %}"
+                    {% if active_page == "create" %}aria-current="page"{% endif %}
+                    href="{% url 'url-redirect-create' %}"
+                >
+                    Create new short URL
+                </a>
+                <a
+                    class="nav-link {% if active_page == "list" %}active{% endif %}"
+                    {% if active_page == "list" %}aria-current="page"{% endif %}
+                    href="{% url 'url-redirect-list' %}"
+                >
+                    View created short URLs
+                </a>
+            </div>
+
+            <span class="navbar-text me-3">Logged in as {{ request.user.username }}</span>
+            <a class="btn btn-outline-danger" href="{% url "logout" %}" role="button">Log out</a>
+        </div>
+    </div>
+</nav>

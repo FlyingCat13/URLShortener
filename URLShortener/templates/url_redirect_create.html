@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block body_content %}
+    {% include "includes/navbar.html" with active_page="create" %}
+
+    <div class="d-flex flex-column">
+        <form method="POST">
+            {% csrf_token %}
+
+            {% include "includes/field.html" with field=form.original_URL additional_classes="mx-5 my-4" %}
+
+            <div class="d-grid gap-2 mx-5">
+                <button type="submit" class="btn btn-lg btn-primary">Shorten URL</button>
+            </div>
+
+            {% if form.non_field_errors %}
+                <div class="invalid-feedback d-block">
+                    {% for error in form.non_field_errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </form>
+    </div>
+
+    {% if short_URL %}
+        <div class="mx-auto text-center mt-5">
+            <h2 class="text-success">Short URL created successfully!</h2>
+            <a class="mb-1" href={{ short_URL }}>{{ short_URL }}</a>
+            <p class="mb-1">Original URL:
+                <a href={{ original_URL }}>{{ original_URL }}</a>
+            </p>
+        </div>
+    {% endif %}
+{% endblock body_content %}

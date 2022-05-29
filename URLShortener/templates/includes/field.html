@@ -1,0 +1,22 @@
+{% load widget_tweaks %}
+<div
+    class="
+        {% if additional_classes %}
+            {{ additional_classes }}
+        {% endif %}
+    "
+>
+    <label class="mb-2" for="{{ field.auto_id }}">{{ field.label }}</label>
+
+    {% if field.errors %}
+        {{ field|add_class:"form-control is-invalid" }}
+    
+        <div class="invalid-feedback">
+            {% for error in field.errors %}
+                <p>{{ error }}</p>
+            {% endfor %}
+        </div>
+    {% else %}
+        {{ field|add_class:"form-control" }}
+    {% endif %}
+</div>
